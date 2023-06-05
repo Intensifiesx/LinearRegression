@@ -33,8 +33,8 @@ y_val = y[int(len(y)/(5/4)):]
 
 # %%
 #======PART 3======
-#Hypervariables
-lr = 1 #Learning rate
+#Hyperparameters
+lr = 0.001 #Learning rate
 n_epochs = 1000 #Number of iterations
 
 # pt.nn.Linear(a, b) - PyTorch linear neural network
@@ -57,4 +57,22 @@ for epochs in range(n_epochs):
     loss.backward()
     optimizer.step()
     optimizer.zero_grad()
+
+#Weight - 4.3
+#Bias - 5
+print(model.state_dict())
+
+# %%
+#======PART 4======
+model.eval() #Sets model to evaluation mode
+x_val = pt.from_numpy(x_val).float().to(device)
+yPred = model(x_val).cpu().detach().numpy() #Detaches the tensor from the GPU and converts it to a numpy array
+comparison = abs(yPred - y_val).flatten()
+
+#=====
+a=20
+x = np.array([a])
+x = pt.from_numpy(x).float().to(device)
+yPred = model(x).cpu().detach().numpy()
+print(yPred)
 # %%
